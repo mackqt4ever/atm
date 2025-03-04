@@ -1,0 +1,49 @@
+class ATM:
+    def __init__(self, initial_balance=0):
+        self.__balance = initial_balance  
+        self._transaction_history = []    
+
+    def deposit(self, amount):
+        """Deposit money into the account."""
+        if amount > 0:
+            self.__balance += amount
+            self._transaction_history.append(f"Deposited: ${amount:.2f}")
+            print(f"Deposited: ${amount:.2f}")
+        else:
+            print("Deposit amount must be positive.")
+
+    def withdraw(self, amount):
+        """Withdraw money from the account."""
+        if amount > 0:
+            if amount <= self.__balance:
+                self.__balance -= amount
+                self._transaction_history.append(f"Withdraw: ${amount:.2f}")
+                print(f"Withdrew: ${amount:.2f}")
+            else:
+                print("Insufficient funds.")
+        else:
+            print("Withdrawal amount must be positive.")
+
+    def check_balance(self):
+        """Check the current balance."""
+        print(f"Current balance: ${self.__balance:.2f}")
+
+    def get_transaction_history(self):
+        """Get the transaction history."""
+        return self._transaction_history
+
+
+if __name__ == "__main__":
+    atm = ATM(1500)  
+
+    atm.check_balance() 
+    atm.deposit(300)      
+    atm.check_balance()  
+    atm.withdraw(240)     
+    atm.check_balance()  
+    atm.withdraw(150)    
+
+    
+    print("Transaction History:")
+    for transaction in atm.get_transaction_history():
+        print(transaction)
